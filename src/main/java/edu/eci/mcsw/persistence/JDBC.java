@@ -43,18 +43,17 @@ public class JDBC {
 
         insertUsuario = con.prepareStatement(insertStatment);
 
-        insertUsuario.setString(6, usuario.getUsuarioid());
-        insertUsuario.setString(2, usuario.getNombre());
         insertUsuario.setString(1, usuario.getApellido());
-        insertUsuario.setString(4, usuario.getCorreo());
-        insertUsuario.setString(7,usuario.getPwd());
-        insertUsuario.setString(5, usuario.getCedula());
+        insertUsuario.setString(2, usuario.getNombre());
         insertUsuario.setString(3, usuario.getCelular());
+        insertUsuario.setString(4, usuario.getCorreo());
+        insertUsuario.setString(5, usuario.getCedula());
+        insertUsuario.setString(6, usuario.getUsuarioid());
+        insertUsuario.setString(7,usuario.getPwd());
 
         insertUsuario.execute();
 
         con.commit();
-
     }
 
 
@@ -83,7 +82,6 @@ public class JDBC {
     public static boolean dologin(Connection con, String correo, String pwd) throws SQLException {
 
         List<String> np=new LinkedList<>();
-
         PreparedStatement getuser = null;
         String consultaUsuarios = "SELECT correo FROM USUARIO where correo="+correo+"and pwd="+pwd;
         getuser = con.prepareStatement(consultaUsuarios);
@@ -91,9 +89,7 @@ public class JDBC {
         while(resultado.next()) {
             np.add(resultado.getString("correo"));
         }
-
        return np.size()==0?false:true;
-
     }
 
 }
