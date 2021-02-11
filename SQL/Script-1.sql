@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS USUARIO (
   celular VARCHAR(13)  NOT NULL,
   correo VARCHAR(50)  unique NOT NULL,
   cedula VARCHAR(12)  unique NOT NULL,
-  usuarioid VARCHAR(10) primary key,
+  usuarioid VARCHAR(10) primary KEY NOT NULL,
   pwd VARCHAR(25) not null);
   

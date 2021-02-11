@@ -34,7 +34,6 @@ public class JDBC {
         }
     }
 
-
     public static List<String> seleccionarUsuarios(Connection con) throws SQLException{
 
         List<String> np=new LinkedList<>();
