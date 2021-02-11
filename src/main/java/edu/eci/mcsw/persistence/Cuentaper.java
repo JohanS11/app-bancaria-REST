@@ -20,7 +20,10 @@ public class Cuentaper {
 
         insertCuenta.setString(1, cuenta.getId());
         insertCuenta.setString(2, cuenta.getNumerodecuenta());
+        insertCuenta.setFloat(3, cuenta.getSaldo());
         insertCuenta.setString(4, cuenta.getTipodecuenta());
+        insertCuenta.setObject(5,cuenta.getUsuario());
+
 
         insertCuenta.execute();
 
