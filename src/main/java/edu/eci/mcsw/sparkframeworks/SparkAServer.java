@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import edu.eci.mcsw.model.Usuario;
 import edu.eci.mcsw.persistence.JDBC;
 import edu.eci.mcsw.servers.HTTPServer;
+import edu.eci.mcsw.services.UserServices;
 
 
 import java.nio.charset.Charset;
 import java.sql.Connection;
 
+import java.sql.SQLException;
 import java.util.Random;
 
 
@@ -39,22 +41,17 @@ public class SparkAServer {
         Connection dbcon = cliente.con;
         SparkA.post("/register",(request, response) -> {
 
-            String buddy = request.getBody();
-            System.out.println(buddy);
-            Gson gson = new Gson();
-            return gson.toJson(buddy);
-            /*try {
-                cliente.registrarusuario(dbcon,usuario);
-                System.out.println("Insert success");
+            System.out.println(request.getBody());
 
-                System.out.println("select * users");
-
-                System.out.println(cliente.seleccionarUsuarios(dbcon));
-
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }*/
-
+            try {
+                Usuario newuser = new Gson().fromJson(request.getBody(),Usuario.class);
+                UserServices.registrarusuario(dbcon,newuser);
+            } catch (Exception e) {
+                response.setStatus("400");
+                return "Registro fallido";
+            }
+            response.setStatus("200");
+            return "Usuario registrado exitosamente";
 
         });
 
