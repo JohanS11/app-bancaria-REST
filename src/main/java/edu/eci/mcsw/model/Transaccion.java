@@ -1,23 +1,27 @@
 package edu.eci.mcsw.model;
 
+import java.sql.Date;
+
 public class Transaccion {
 
     private String identificador;
-    private String numerocuenta;
-    private String tipodecuenta;
+    private String numerodecuenta;
     private float saldoatransferir;
     private boolean aprobacion;
+    private Date fecha;
+    private String detalle;
 
     public Transaccion() {
 
     }
 
-    public Transaccion(String identificador, String numeroprimeracuenta, String numerosegundacuenta, String tipodecuenta, float saldoatransferir, boolean aprobacion) {
+    public Transaccion(String identificador, String numeroprimeracuenta, String numerosegundacuenta, float saldoatransferir, boolean aprobacion, Date fecha, String detalle) {
         this.identificador = identificador;
-        this.numerocuenta = numeroprimeracuenta;
-        this.tipodecuenta = tipodecuenta;
+        this.numerodecuenta = numeroprimeracuenta;
         this.saldoatransferir = saldoatransferir;
         this.aprobacion = aprobacion;
+        this.fecha = fecha;
+        this.detalle = detalle;
     }
 
     public String getIdentificador() {
@@ -28,15 +32,29 @@ public class Transaccion {
         this.identificador = identificador;
     }
 
-    public String getIdprimeracuenta() {
-        return numerocuenta;
+    public String getNumerocuenta() {
+        return numerodecuenta;
     }
 
-    public void setIdprimeracuenta(String idprimeracuenta) {
-        this.numerocuenta = idprimeracuenta;
+    public void setNumerocuenta(String numerocuenta) {
+        this.numerodecuenta = numerocuenta;
     }
 
+    public Date getFecha() {
+        return fecha;
+    }
 
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
+    }
 
     public float getSaldoatransferir() {
         return saldoatransferir;
@@ -58,7 +76,7 @@ public class Transaccion {
     public String toString() {
         return "Transaccion{" +
                 "identificador='" + identificador + '\'' +
-                ", idprimeracuenta='" + numerocuenta + '\'' +
+                ", idprimeracuenta='" + numerodecuenta + '\'' +
                 ", saldoatransferir=" + saldoatransferir +
                 ", aprobacion=" + aprobacion +
                 '}';

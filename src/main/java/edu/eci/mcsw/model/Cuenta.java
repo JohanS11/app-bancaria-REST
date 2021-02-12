@@ -10,17 +10,18 @@ public class Cuenta {
     private String numerodecuenta;
     private String tipodecuenta;
     private float saldo;
-    private Usuario usuario;
+    private String usuario;
 
     public Cuenta() {
 
     }
 
-    public Cuenta(String id, String numerodecuenta, String tipodecuenta, float saldo) {
+    public Cuenta(String id, String numerodecuenta, String tipodecuenta, float saldo, String usuario) {
         this.id = id;
         this.numerodecuenta = numerodecuenta;
         this.tipodecuenta = tipodecuenta;
         this.saldo = saldo;
+        this.usuario = usuario;
     }
 
     public void setId(String id) {
@@ -55,11 +56,11 @@ public class Cuenta {
         this.saldo = saldo;
     }
 
-    public Usuario getUsuario() {
+    public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 }

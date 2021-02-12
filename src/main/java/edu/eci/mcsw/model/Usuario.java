@@ -19,10 +19,12 @@ public class Usuario {
 
     private String pwd;
 
+    private Role rol;
+
     public Usuario() {
     }
 
-    public Usuario(String usuarioid, String nombre, String apellido, String correo, String pwd, String cedula, String celular) {
+    public Usuario(String usuarioid, String nombre, String apellido, String correo, String pwd, String cedula, String celular,Role rol) {
         this.usuarioid = usuarioid;
         this.nombre = nombre;
         this.celular = celular;
@@ -30,6 +32,7 @@ public class Usuario {
         this.correo = correo;
         this.pwd = pwd;
         this.cedula = cedula;
+        this.rol = rol;
     }
 
     public String getCelular() {
@@ -86,6 +89,14 @@ public class Usuario {
 
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+
+    public Role getRol() {
+        return rol;
+    }
+
+    public void setRol(Role rol) {
+        this.rol = rol;
     }
 
     @Override

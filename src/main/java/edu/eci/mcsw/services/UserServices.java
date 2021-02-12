@@ -1,5 +1,6 @@
 package edu.eci.mcsw.services;
 
+import edu.eci.mcsw.model.Cuenta;
 import edu.eci.mcsw.model.Usuario;
 
 import java.sql.Connection;
@@ -12,27 +13,31 @@ import java.util.List;
 public class UserServices {
 
 
-
-
     public static void registrarusuario(Connection con , Usuario usuario) throws SQLException {
 
         PreparedStatement insertUsuario = null;
         //Toca generalizar la sentencia con ?
 
-        String insertStatment = "INSERT INTO USUARIO VALUES (?,?,?,?,?,?,?)";
+        String selectcedula  = "SELECT * from cedulas where cedula="+usuario.getCedula();
 
-        insertUsuario = con.prepareStatement(insertStatment);
+        if (selectcedula != null) {
 
-        insertUsuario.setString(1, usuario.getApellido());
-        insertUsuario.setString(2, usuario.getNombre());
-        insertUsuario.setString(3, usuario.getCelular());
-        insertUsuario.setString(4, usuario.getCorreo());
-        insertUsuario.setString(5, usuario.getCedula());
-        insertUsuario.setString(6, usuario.getUsuarioid());
-        insertUsuario.setString(7,usuario.getPwd());
-        insertUsuario.execute();
+            String insertStatment = "INSERT INTO USUARIO VALUES (?,?,?,?,?,?,?,?)";
 
-        con.commit();
+            insertUsuario = con.prepareStatement(insertStatment);
+
+            insertUsuario.setString(1, usuario.getApellido());
+            insertUsuario.setString(2, usuario.getNombre());
+            insertUsuario.setString(3, usuario.getCelular());
+            insertUsuario.setString(4, usuario.getCorreo());
+            insertUsuario.setString(5, usuario.getCedula());
+            insertUsuario.setString(6, usuario.getUsuarioid());
+            insertUsuario.setString(7, usuario.getPwd());
+            insertUsuario.setString(8, usuario.getRol().name());
+            insertUsuario.execute();
+
+            con.commit();
+        } else { System.out.println("no se pudo registrar"); }
 
     }
 
@@ -51,5 +56,7 @@ public class UserServices {
         return np.size()==0?false:true;
 
     }
+
+
 }
 

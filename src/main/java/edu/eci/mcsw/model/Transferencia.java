@@ -6,14 +6,14 @@ public class Transferencia {
     private String tipodecuenta;
     private float saldoatransferir;
     private boolean aprobacion;
-    private Transaccion retiro;
-    private Transaccion deposito;
+    private String retiro;
+    private String deposito;
 
     public Transferencia() {
 
     }
 
-    public Transferencia(String identificador, String tipodecuenta, float saldoatransferir, boolean aprobacion, Transaccion retiro, Transaccion deposito) {
+    public Transferencia(String identificador, String tipodecuenta, float saldoatransferir, boolean aprobacion, String retiro, String deposito) {
         this.identificador = identificador;
         this.tipodecuenta = tipodecuenta;
         this.saldoatransferir = saldoatransferir;
@@ -54,19 +54,19 @@ public class Transferencia {
         this.aprobacion = aprobacion;
     }
 
-    public Transaccion getRetiro() {
+    public String getRetiro() {
         return retiro;
     }
 
-    public void setRetiro(Transaccion retiro) {
+    public void setRetiro(String retiro) {
         this.retiro = retiro;
     }
 
-    public Transaccion getDeposito() {
+    public String getDeposito() {
         return deposito;
     }
 
-    public void setDeposito(Transaccion deposito) {
+    public void setDeposito(String deposito) {
         this.deposito = deposito;
     }
 
