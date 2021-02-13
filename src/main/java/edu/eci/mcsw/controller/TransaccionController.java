@@ -5,16 +5,14 @@ import edu.eci.mcsw.persistence.JDBC;
 import edu.eci.mcsw.services.TransaccionServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/transacciones")
+@CrossOrigin("*")
 public class TransaccionController {
 
     JDBC cliente = new JDBC();

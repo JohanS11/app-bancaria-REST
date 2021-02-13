@@ -56,7 +56,7 @@ CREATE TABLE transaccion (
     origen varchar(50) not null,
     destinatario varchar(50),
     saldoatransferir numeric NOT NULL,
-    fecha timestamp   not null,
+    fecha timestamptz   not null,
     detalle varchar(300),
     aprobacion bool NOT NULL,
     intrabancaria bool NOT NULL,

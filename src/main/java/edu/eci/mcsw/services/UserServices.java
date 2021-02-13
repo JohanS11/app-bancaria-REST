@@ -15,7 +15,9 @@ public class UserServices {
 
     public static void registrarUsuarioSistema(Connection con , Usuario usuario) throws SQLException {
 
+        con.setAutoCommit(true);
         PreparedStatement insertUsuario = null;
+
         //Toca generalizar la sentencia con ?
 
 
@@ -32,6 +34,7 @@ public class UserServices {
         insertUsuario.setString(7, usuario.getPwd());
         insertUsuario.setString(8, usuario.getRol().name());
         insertUsuario.execute();
+        con.setAutoCommit(false);
 
         con.commit();
 
@@ -42,18 +45,21 @@ public class UserServices {
         List<String> np=new LinkedList<>();
 
         PreparedStatement getuser = null;
-        String consultaUsuarios = "SELECT correo FROM USUARIO where cedula="+"'"+credentials.getEmail()+"'"+"and pwd="+"'"+credentials.getPassword()+"'";
+        String consultaUsuarios = "SELECT correo FROM USUARIO where correo="+"'"+credentials.getEmail()+"'"+"and pwd="+"'"+credentials.getPassword()+"'";
         getuser = con.prepareStatement(consultaUsuarios);
         ResultSet resultado = getuser.executeQuery();
         while(resultado.next()) {
             np.add(resultado.getString("correo"));
         }
+        System.out.println(np);
 
         return np.size()==0?false:true;
 
     }
 
     public static void registrarUsuarioApp(Connection con , Usuario usuario) throws SQLException, ServicesException {
+
+        con.setAutoCommit(true);
 
         PreparedStatement insertUsuario = null;
 
@@ -64,6 +70,7 @@ public class UserServices {
         selectUsuario = con.prepareStatement(selectStatment);
         selectUsuario.setString(1,usuario.getCedula());
         ResultSet resultado = selectUsuario.executeQuery();
+        con.setAutoCommit(false);
 
         if (resultado.next()){
             String insertStatment = "INSERT INTO USUARIO VALUES (?,?,?,?,?,?,?,?)";

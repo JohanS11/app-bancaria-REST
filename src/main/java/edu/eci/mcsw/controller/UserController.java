@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin("*")
 public class UserController {
 
     JDBC cliente = new JDBC();
@@ -23,9 +24,13 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Credentials credentials){
 
         try {
-            UserServices.dologin(dbcon,credentials);
-            return new ResponseEntity<>("login success", HttpStatus.ACCEPTED);
-        } catch (SQLException e) {
+            boolean login = UserServices.dologin(dbcon,credentials);
+            if (login) {
+                return new ResponseEntity<>("login success", HttpStatus.ACCEPTED);
+            }
+            throw new ServicesException(ServicesException.USUARIO_NO_REGISTRADO_EN_SISTEMA);
+
+        } catch (SQLException | ServicesException e) {
             return new ResponseEntity<>("login failed", HttpStatus.BAD_REQUEST);
         }
     }
@@ -44,12 +49,15 @@ public class UserController {
     @PostMapping("registro-app")
     public ResponseEntity<?> registrarUsuarioApp(@RequestBody Usuario usuario){
 
+        System.out.println(usuario);
         try {
             UserServices.registrarUsuarioApp(dbcon,usuario);
             return new ResponseEntity<>("Registro exitoso", HttpStatus.ACCEPTED);
         } catch (SQLException e) {
+            e.printStackTrace();
             return new ResponseEntity<>("Este usuario ya se ha registrado o ha ocurrido un error", HttpStatus.BAD_REQUEST);
         } catch (ServicesException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }

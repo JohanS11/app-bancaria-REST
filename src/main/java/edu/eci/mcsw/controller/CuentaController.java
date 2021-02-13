@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/cuentas")
+@CrossOrigin("*")
 public class CuentaController {
 
     JDBC cliente = new JDBC();

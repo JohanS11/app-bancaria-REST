@@ -6,10 +6,12 @@ import java.util.Collection;
 
 public class Usuario {
 
-    private String nombre;
+
     private String apellido;
-    private String correo;
+    private String nombre;
     private String celular;
+    private String correo;
+
 
     private String cedula;
 
@@ -100,12 +102,14 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
+                "apellido='" + apellido + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", celular='" + celular + '\'' +
                 ", correo='" + correo + '\'' +
                 ", cedula='" + cedula + '\'' +
                 ", usuarioid='" + usuarioid + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", rol=" + rol +
                 '}';
     }
-
 }
