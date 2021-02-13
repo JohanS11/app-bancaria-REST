@@ -11,8 +11,6 @@ public class Usuario {
     private String correo;
     private String celular;
 
-    private Collection<Cuenta> cuentas = new ArrayList<Cuenta>();
-
     private String cedula;
 
     private String usuarioid;
@@ -105,7 +103,6 @@ public class Usuario {
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", correo='" + correo + '\'' +
-                ", cuentas=" + cuentas +
                 ", cedula='" + cedula + '\'' +
                 ", usuarioid='" + usuarioid + '\'' +
                 '}';

@@ -18,7 +18,7 @@ public class Request {
     /**
      * Instantiates a new Request.
      */
-    public Request(){
+    public Request() {
         this.path = "";
         this.type = "";
         this.headersMap = new HashMap<String, String>();
@@ -29,7 +29,7 @@ public class Request {
      *
      * @return the string
      */
-    public String getPath(){
+    public String getPath() {
         return path;
     }
 
@@ -74,6 +74,7 @@ public class Request {
      *
      * @return the body
      */
+
     public String getBody() {
         return body;
     }

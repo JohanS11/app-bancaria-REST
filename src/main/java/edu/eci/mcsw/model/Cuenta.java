@@ -1,7 +1,5 @@
 package edu.eci.mcsw.model;
 
-import javax.persistence.*;
-
 public class Cuenta {
 
 

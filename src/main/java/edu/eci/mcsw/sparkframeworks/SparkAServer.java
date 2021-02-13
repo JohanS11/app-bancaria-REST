@@ -2,6 +2,7 @@ package edu.eci.mcsw.sparkframeworks;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import edu.eci.mcsw.model.Cuenta;
 import edu.eci.mcsw.model.Transaccion;
 import edu.eci.mcsw.model.Usuario;
@@ -10,12 +11,13 @@ import edu.eci.mcsw.servers.HTTPServer;
 import edu.eci.mcsw.services.CuentaServices;
 import edu.eci.mcsw.services.TransaccionServices;
 import edu.eci.mcsw.services.UserServices;
-
+import org.json.JSONObject;
 
 import java.nio.charset.Charset;
 import java.sql.Connection;
-
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -30,6 +32,7 @@ public class SparkAServer {
      * @param args the args
      */
     public static void main(String[] args) {
+
 
         HTTPServer server = new HTTPServer();
         server.setPort(getPort());
@@ -64,6 +67,10 @@ public class SparkAServer {
         });
 
 
+
+        SparkA.post("/hola",(request, response) -> {
+            return request.getBody();
+        });
         /// registrar cuenta
 
         SparkA.post("/registrocuenta", (request, response) -> {
@@ -76,7 +83,6 @@ public class SparkAServer {
 
             } catch (Exception e) {
                 response.setStatus("400");
-                e.printStackTrace();
                 return "Registro cuenta fallido";
             }
             response.setStatus("200");
@@ -93,27 +99,41 @@ public class SparkAServer {
 
             } catch (Exception e) {
                 response.setStatus("400");
-                e.printStackTrace();
                 return "Registro transaccion fallido";
             }
             response.setStatus("200");
-            return "transaccion registrado exitosamente";
+            return " Transaccion registrada exitosamente";
 
         });
 
-        SparkA.get("/movimientos", (request, response) -> {
+        SparkA.post("/movimientos", (request, response) -> {
+
+            Gson gson = new Gson();
+            Cuenta cuenta = new Gson().fromJson(request.getBody(), Cuenta.class);
+
+            cuenta.getNumerodecuenta();
+
+            System.out.println(cuenta);
 
             System.out.println(request.getBody());
+            List<String> ultimosmov = null;
             try {
-                CuentaServices.verUltimosMov(dbcon, request.getBody());
-            } catch (SQLException throwables) {
+                ultimosmov = CuentaServices.verUltimosMov(dbcon,request.getBody());
+            } catch (SQLException e) {
+                e.printStackTrace();
                 response.setStatus("400");
-                System.out.println("Transaccion fallida");
+                System.out.println("Consulta fallida");
+                return response.getStatus();
             }
-            System.out.println("transaccion exitosa");
-            return response.getStatus();
+            System.out.println("Consulta exitosa");
+            response.setStatus("200 OK");
+            System.out.println(ultimosmov);
+            return ultimosmov.toString();
         });
     }
+
+
+
     /**
      * Gets port.
      *

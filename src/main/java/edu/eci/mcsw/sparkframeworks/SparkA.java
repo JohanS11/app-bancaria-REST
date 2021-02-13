@@ -24,7 +24,8 @@ public class SparkA {
      * @param f    the f
      */
     public static void get (String path, BiFunction<Request, Response,String> f){
-        handler.getEndPoints().put("GET"+path,f);
+        handler.getEndPoints().put("GET" + path, f);
+
     }
 
     /**

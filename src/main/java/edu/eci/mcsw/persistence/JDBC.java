@@ -1,11 +1,6 @@
 package edu.eci.mcsw.persistence;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import edu.eci.mcsw.model.Usuario;
-
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;

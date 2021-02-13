@@ -1,30 +1,33 @@
 package edu.eci.mcsw.services;
 
 import edu.eci.mcsw.model.Cuenta;
-import edu.eci.mcsw.model.Transaccion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CuentaServices {
 
-    public static List<String> verCuenta(Connection con , edu.eci.mcsw.model.Cuenta cuenta, String cedula) throws SQLException {
+    public static List<String> verCuenta(Connection con , String cuenta) throws SQLException {
+
 
         List<String> np=new LinkedList<>();
 
         PreparedStatement getcuenta = null;
-        String consultarcuenta = "SELECT * FROM cuenta where usuario="+cedula;
+        System.out.println(cuenta);
+        String consultarcuenta = "SELECT * FROM CUENTA where numerodecuenta="+"'"+cuenta+"'";
         getcuenta = con.prepareStatement(consultarcuenta);
+
         ResultSet resultado = getcuenta.executeQuery();
         while(resultado.next()) {
+           /* np.add(resultado.getString("id"));
             np.add(resultado.getString("numerodecuenta"));
             np.add(resultado.getString("saldo"));
-            np.add(resultado.getString("tipodecuenta"));
+            np.add(resultado.getString("tipodecuenta"));*/
+            np.add(resultado.getString("saldo"));
         }
 
         return np;
@@ -32,6 +35,7 @@ public class CuentaServices {
 
     public static void registrarCuenta(Connection con , Cuenta cuenta) throws SQLException {
 
+        con.setAutoCommit(true);
         PreparedStatement insertCuenta = null;
         //Toca generalizar la sentencia con ?
 
@@ -48,22 +52,47 @@ public class CuentaServices {
         insertCuenta.setString(5,cuenta.getUsuario());
 
         insertCuenta.execute();
+        con.setAutoCommit(false);
+        con.commit();
+
+    }
+
+    public static void actualizarSaldo(Connection con , String id, float saldo) throws SQLException {
+
+        con.setAutoCommit(true);
+        PreparedStatement updateCuenta = null;
+
+        //Toca generalizar la sentencia con ?
+
+        String updateStatment = "UPDATE CUENTA SET saldo=saldo+? where id=?";
+
+        updateCuenta = con.prepareStatement(updateStatment);
+
+
+        updateCuenta.setFloat(1, saldo);
+        updateCuenta.setString(2, id);
+        updateCuenta.execute();
+        con.setAutoCommit(false);
         con.commit();
     }
+
+
 
     public static List<String> verUltimosMov(Connection con, String cuenta) throws SQLException {
 
         List<String> np=new LinkedList<>();
 
         PreparedStatement getmovs = null;
-        String consultarmov = "SELECT detalle,fecha,saldoatransferir,aprobado FROM TRANSACCION where numerocuenta="+cuenta+"order by fecha DESC";
+        System.out.println(cuenta);
+        String consultarmov = "SELECT detalle,fecha,saldoatransferir,aprobacion FROM TRANSACCION where origen='"+cuenta+"'"+ "or destinatario='"+cuenta+"'"+" order by fecha DESC";
         getmovs = con.prepareStatement(consultarmov);
+
         ResultSet resultado = getmovs.executeQuery();
         while(resultado.next()) {
             np.add(resultado.getString("detalle"));
             np.add(resultado.getString("fecha"));
             np.add(resultado.getString("saldoatransferir"));
-            np.add(resultado.getString("aprobado"));
+            np.add(resultado.getString("aprobacion"));
 
         }
         return np;

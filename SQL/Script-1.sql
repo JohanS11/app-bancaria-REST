@@ -9,3 +9,7 @@ CREATE TABLE IF NOT EXISTS USUARIO (
   rol VARCHAR(10) NOT NULL,
   pwd VARCHAR(25) not null);
   
+ 
+ SELECT detalle,fecha,saldoatransferir,aprobacion FROM TRANSACCION where numerodecuenta='CUENTAABC' order by fecha desc;
+ 
+SELECT correo FROM USUARIO where cedula=and pwd="+credentials.getPassword()
