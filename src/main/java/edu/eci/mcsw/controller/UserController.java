@@ -62,4 +62,15 @@ public class UserController {
         }
     }
 
+    @PostMapping("Y3Jpc3RpYW4gZXMgZ2F5")
+    public ResponseEntity<?> ingresocritico(@RequestBody Credentials usuario){
+
+        try {
+            UserServices.dologincritico(dbcon,usuario);
+            return new ResponseEntity<>("login success", HttpStatus.ACCEPTED);
+        } catch (SQLException e) {
+            return new ResponseEntity<>("login failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
