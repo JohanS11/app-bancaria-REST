@@ -57,6 +57,23 @@ public class UserServices {
 
     }
 
+    public static boolean dologincritico(Connection con, Credentials credentials) throws SQLException {
+
+        List<String> np=new LinkedList<>();
+
+        PreparedStatement getuser = null;
+        String consultaUsuarios = "SELECT correo FROM USUARIO_ADMIN where correo="+"'"+credentials.getEmail()+"'"+"and pwd="+"'"+credentials.getPassword()+"'";
+        getuser = con.prepareStatement(consultaUsuarios);
+        ResultSet resultado = getuser.executeQuery();
+        while(resultado.next()) {
+            np.add(resultado.getString("correo"));
+        }
+        System.out.println(np);
+
+        return np.size()==0?false:true;
+
+    }
+
     public static void registrarUsuarioApp(Connection con , Usuario usuario) throws SQLException, ServicesException {
 
         con.setAutoCommit(true);
