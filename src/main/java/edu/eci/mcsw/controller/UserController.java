@@ -40,8 +40,10 @@ public class UserController {
 
         try {
             UserServices.registrarUsuarioSistema(dbcon,usuario);
+
             return new ResponseEntity<>("registro success", HttpStatus.ACCEPTED);
         } catch (SQLException e) {
+            e.printStackTrace();
             return new ResponseEntity<>("registro failed", HttpStatus.BAD_REQUEST);
         }
     }
@@ -52,12 +54,11 @@ public class UserController {
         System.out.println(usuario);
         try {
             UserServices.registrarUsuarioApp(dbcon,usuario);
+
             return new ResponseEntity<>("Registro exitoso", HttpStatus.ACCEPTED);
         } catch (SQLException e) {
-            e.printStackTrace();
             return new ResponseEntity<>("Este usuario ya se ha registrado o ha ocurrido un error", HttpStatus.BAD_REQUEST);
         } catch (ServicesException e) {
-            e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
@@ -70,6 +71,18 @@ public class UserController {
             return new ResponseEntity<>("login success", HttpStatus.ACCEPTED);
         } catch (SQLException e) {
             return new ResponseEntity<>("login failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/accounts")
+    public ResponseEntity<?> accounts(){
+
+        try {
+
+            return new ResponseEntity<>( UserServices.accounts(dbcon), HttpStatus.ACCEPTED);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("get failed", HttpStatus.BAD_REQUEST);
         }
     }
 

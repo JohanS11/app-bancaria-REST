@@ -57,6 +57,25 @@ public class UserServices {
 
     }
 
+    public static List<String> accounts(Connection con) throws SQLException {
+
+        List<String> np=new LinkedList<>();
+
+        PreparedStatement getuser = null;
+        String consultaUsuarios = "SELECT * FROM CUENTA";
+        getuser = con.prepareStatement(consultaUsuarios);
+
+        ResultSet resultado = getuser.executeQuery();
+        while(resultado.next()) {
+            np.add(resultado.getString("numerodecuenta"));
+            np.add(resultado.getString("saldo"));
+            np.add(resultado.getString("tipodecuenta"));
+            np.add(resultado.getString("usuario"));
+        }
+        return np;
+
+    }
+
     public static boolean dologincritico(Connection con, Credentials credentials) throws SQLException {
 
         List<String> np=new LinkedList<>();
@@ -112,9 +131,6 @@ public class UserServices {
         con.commit();
 
     }
-
-
-
 
 }
 
