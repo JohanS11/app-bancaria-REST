@@ -22,6 +22,9 @@ import { Redirect } from 'react-router-dom';
 import {Login } from './Login';
 import  {TodoApp} from './TodoApp';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import {Transactions} from './Transactions';
+import { createBrowserHistory } from 'history';
 
 
 const drawerWidth = 240;
@@ -61,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function ResponsiveDrawer(props) {
+
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -74,6 +78,11 @@ function ResponsiveDrawer(props) {
     localStorage.setItem("IsLoggedIn",false);
     localStorage.removeItem("IsLoggedIn");
     handleDrawerToggle();
+  }
+
+  const handleSeeTransactions = (e) => {
+    
+     props.history.push("/user/transacciones")
   }
 
   if (!localStorage.getItem("IsLoggedIn")){
@@ -101,6 +110,16 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={localStorage.getItem("email")} />
             
           </ListItem>
+
+          <ListItem button key={"Transacciones"} onClick={(e) => handleSeeTransactions(e)}>
+            
+            <ListItemIcon>
+              <ReceiptIcon> </ReceiptIcon>  
+            </ListItemIcon>
+            <ListItemText primary= "Ver Transacciones" />
+            
+          </ListItem>
+
       </List>
    
       <Divider />

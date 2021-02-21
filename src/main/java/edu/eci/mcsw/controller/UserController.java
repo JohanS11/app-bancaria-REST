@@ -4,6 +4,7 @@ import edu.eci.mcsw.model.Credentials;
 import edu.eci.mcsw.model.Usuario;
 import edu.eci.mcsw.persistence.JDBC;
 import edu.eci.mcsw.services.ServicesException;
+import edu.eci.mcsw.services.TransaccionServices;
 import edu.eci.mcsw.services.UserServices;
 import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
@@ -99,5 +100,18 @@ public class UserController {
             return new ResponseEntity<>("Cuenta get failed", HttpStatus.BAD_REQUEST);
         }
     }
+
+
+    @GetMapping("/transacciones")
+    public ResponseEntity<?> getTransacciones(@RequestParam String usuario){
+
+        try {
+            return new ResponseEntity<>( TransaccionServices.getTransaccionById(dbcon,usuario), HttpStatus.ACCEPTED);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("No se pudieron obtener las transacciones del usuario"+usuario, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }

@@ -6,6 +6,7 @@ import Drawer from './components/Drawer';
 import { Redirect } from 'react-router-dom';
 import { SignUp } from './components/SignUp';
 import { LoginAdmin } from './components/LoginAdmin';
+import { Transactions } from './components/Transactions';
 
 
 class App extends Component {
@@ -29,6 +30,9 @@ class App extends Component {
                     
                     <Route path="/signup"
                     component={SignUp} exact> </Route>
+
+                <Route path="/user/transacciones"       
+                    component={Transactions} exact> </Route>
 
                     <Route path="/login"
                         component={Drawer} exact> </Route>
