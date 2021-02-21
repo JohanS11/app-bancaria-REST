@@ -15,7 +15,6 @@ public class TransaccionServices {
 
     public static void registrarTransaccion(Connection con, Transaccion transaccion) throws SQLException {
 
-
         con.setAutoCommit(true);
         PreparedStatement insertTransaccion = null;
 

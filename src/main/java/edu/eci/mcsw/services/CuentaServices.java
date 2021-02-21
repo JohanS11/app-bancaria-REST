@@ -39,17 +39,16 @@ public class CuentaServices {
         PreparedStatement insertCuenta = null;
         //Toca generalizar la sentencia con ?
 
-        String insertStatment = "INSERT INTO CUENTA VALUES (?,?,?,?,?)";
+        String insertStatment = "INSERT INTO CUENTA VALUES (?,?,?,?)";
 
         insertCuenta = con.prepareStatement(insertStatment);
 
         System.out.println(cuenta.getUsuario());
 
-        insertCuenta.setString(1, cuenta.getId());
-        insertCuenta.setString(2, cuenta.getNumerodecuenta());
-        insertCuenta.setFloat(3, cuenta.getSaldo());
-        insertCuenta.setString(4, cuenta.getTipodecuenta());
-        insertCuenta.setString(5,cuenta.getUsuario());
+        insertCuenta.setString(1, cuenta.getNumerodecuenta());
+        insertCuenta.setFloat(2, cuenta.getSaldo());
+        insertCuenta.setString(3, cuenta.getTipodecuenta());
+        insertCuenta.setString(4,cuenta.getUsuario());
 
         insertCuenta.execute();
         con.setAutoCommit(false);
@@ -57,20 +56,20 @@ public class CuentaServices {
 
     }
 
-    public static void actualizarSaldo(Connection con , String id, float saldo) throws SQLException {
+    public static void actualizarSaldo(Connection con , String numerodecuenta, float saldo) throws SQLException {
 
         con.setAutoCommit(true);
         PreparedStatement updateCuenta = null;
 
         //Toca generalizar la sentencia con ?
 
-        String updateStatment = "UPDATE CUENTA SET saldo=saldo+? where id=?";
+        String updateStatment = "UPDATE CUENTA SET saldo=saldo+? where numerodecuenta=?";
 
         updateCuenta = con.prepareStatement(updateStatment);
 
 
         updateCuenta.setFloat(1, saldo);
-        updateCuenta.setString(2, id);
+        updateCuenta.setString(2, numerodecuenta);
         updateCuenta.execute();
         con.setAutoCommit(false);
         con.commit();

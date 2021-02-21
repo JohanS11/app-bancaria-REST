@@ -5,12 +5,15 @@ import edu.eci.mcsw.model.Usuario;
 import edu.eci.mcsw.persistence.JDBC;
 import edu.eci.mcsw.services.ServicesException;
 import edu.eci.mcsw.services.UserServices;
+import org.json.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -24,9 +27,9 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody Credentials credentials){
 
         try {
-            boolean login = UserServices.dologin(dbcon,credentials);
-            if (login) {
-                return new ResponseEntity<>("login success", HttpStatus.ACCEPTED);
+            List<String> login = UserServices.dologin(dbcon,credentials);
+            if (login!=null) {
+                return new ResponseEntity<>(login, HttpStatus.ACCEPTED);
             }
             throw new ServicesException(ServicesException.USUARIO_NO_REGISTRADO_EN_SISTEMA);
 
@@ -83,6 +86,17 @@ public class UserController {
         } catch (SQLException e) {
             e.printStackTrace();
             return new ResponseEntity<>("get failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/cuenta")
+    public ResponseEntity<?> getCuenta(@RequestParam String cedula){
+
+        try {
+            return new ResponseEntity<>( UserServices.getCuentaByUser(dbcon,cedula), HttpStatus.ACCEPTED);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Cuenta get failed", HttpStatus.BAD_REQUEST);
         }
     }
 

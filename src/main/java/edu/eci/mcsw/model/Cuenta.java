@@ -2,9 +2,6 @@ package edu.eci.mcsw.model;
 
 public class Cuenta {
 
-
-    private String id;
-
     private String numerodecuenta;
     private String tipodecuenta;
     private float saldo;
@@ -14,20 +11,12 @@ public class Cuenta {
 
     }
 
-    public Cuenta(String id, String numerodecuenta, String tipodecuenta, float saldo, String usuario) {
-        this.id = id;
+    public Cuenta(String numerodecuenta, String tipodecuenta, float saldo, String usuario) {
+
         this.numerodecuenta = numerodecuenta;
         this.tipodecuenta = tipodecuenta;
         this.saldo = saldo;
         this.usuario = usuario;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getNumerodecuenta() {
@@ -60,5 +49,15 @@ public class Cuenta {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Cuenta{" +
+                "numerodecuenta='" + numerodecuenta + '\'' +
+                ", tipodecuenta='" + tipodecuenta + '\'' +
+                ", saldo=" + saldo +
+                ", usuario='" + usuario + '\'' +
+                '}';
     }
 }

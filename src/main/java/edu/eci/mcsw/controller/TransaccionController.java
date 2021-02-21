@@ -29,5 +29,4 @@ public class TransaccionController {
             return new ResponseEntity<>("transaccion failed", HttpStatus.BAD_REQUEST);
         }
     }
-
 }
