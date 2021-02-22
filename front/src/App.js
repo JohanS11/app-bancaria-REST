@@ -34,7 +34,7 @@ class App extends Component {
                 <Route path="/user/transacciones"       
                     component={Transactions} exact> </Route>
 
-                    <Route path="/login"
+                    <Route path="/dashboard"
                         component={Drawer} exact> </Route>
 
                     <Route path="/logout" render={()=>{

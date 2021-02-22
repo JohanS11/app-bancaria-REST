@@ -20,6 +20,8 @@ public class UserServices {
         con.setAutoCommit(true);
         PreparedStatement insertUsuario = null;
 
+        PreparedStatement selectUsuariosSistema = null;
+
         //Toca generalizar la sentencia con ?
 
 
@@ -126,10 +128,9 @@ public class UserServices {
 
         PreparedStatement selectUsuario = null;
 
-        String selectStatment = "SELECT cedula FROM USUARIO_SISTEMA WHERE cedula=?";
+        String selectStatment = "SELECT cedula FROM USUARIO_SISTEMA WHERE cedula='"+usuario.getCedula()+"'";
 
         selectUsuario = con.prepareStatement(selectStatment);
-        selectUsuario.setString(1,usuario.getCedula());
         ResultSet resultado = selectUsuario.executeQuery();
         con.setAutoCommit(false);
 
@@ -150,8 +151,6 @@ public class UserServices {
         } else{
             throw new ServicesException(ServicesException.USUARIO_NO_REGISTRADO_EN_SISTEMA);
         }
-
-
 
         con.commit();
 

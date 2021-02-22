@@ -58,6 +58,7 @@ public class TransaccionServices {
             jsonpequeño.put(rsmd.getColumnName(3), resultado.getString("saldoatransferir"));
             jsonpequeño.put(rsmd.getColumnName(4), resultado.getString("fecha"));
             jsonpequeño.put(rsmd.getColumnName(5), resultado.getString("detalle"));
+
             jsongrande.add(jsonpequeño);
         }
         System.out.println(jsongrande);

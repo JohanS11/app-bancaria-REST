@@ -76,25 +76,23 @@ export class SignUp extends React.Component{
             correo: this.state.email,
             cedula: this.state.cedula,
             usuarioid: nextId("USER-ID-"), // id: test-id-2
-            pwd: this.state.apellido,
+            pwd: this.state.password,
             rol: "CLIENTE",
         })
         .then((data)=>{
             localStorage.setItem("IsLoggedIn",true);
+            this.setState(this.state);
         }).catch((err)=>{
             console.log(err);
-            alert("No se pudo registrar sesion");
+            alert("Este usuario no está registrado en el sistema bancario");
         });
     }
 
     render(){
         if(localStorage.getItem("IsLoggedIn")){
-            return <Redirect to="/todo"></Redirect>
+            return <Redirect to="/dashboard"></Redirect>
         }
         
-        if(localStorage.getItem("users")==null){
-            localStorage.setItem("users",JSON.stringify([{"username":"chan","email":"chan@mail.com","password":"chan123"}]));
-        }
         return(
             <React.Fragment>
                 <CssBaseline />

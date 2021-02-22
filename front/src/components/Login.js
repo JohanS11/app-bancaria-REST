@@ -59,7 +59,7 @@ export class Login extends React.Component{
     render(){
         
         if(localStorage.getItem("IsLoggedIn")){
-            return <Redirect to="/login"></Redirect>
+            return <Redirect to="/dashboard"></Redirect>
         }
     
         return (
